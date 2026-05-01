@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shadowrocket 配置托管</title>
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:#0b0f14;
+    color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC",sans-serif;
+  }
+  .wrap{
+    max-width:900px;
+    margin:40px auto;
+    padding:20px;
+  }
+  .card{
+    background:#131922;
+    border:1px solid #253041;
+    border-radius:20px;
+    padding:28px;
+    margin-bottom:24px;
+    box-shadow:0 12px 30px rgba(0,0,0,.35);
+  }
+  h1,h2{
+    margin-top:0;
+    color:#ffd166;
+  }
+  .desc{
+    color:#9fb0c3;
+    margin-bottom:18px;
+  }
+  .url-box{
+    background:#0a0e13;
+    border:1px solid #2b3543;
+    border-radius:12px;
+    padding:14px;
+    font-family:monospace;
+    word-break:break-all;
+    margin-bottom:18px;
+    color:#d6deeb;
+  }
+  .btns{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .btn{
+    border:none;
+    cursor:pointer;
+    padding:14px 22px;
+    border-radius:12px;
+    font-weight:700;
+    font-size:14px;
+    transition:.2s;
+  }
+  .primary{
+    background:linear-gradient(135deg,#ffd166,#ffb703);
+    color:#111;
+  }
+  .secondary{
+    background:#1f2937;
+    color:#fff;
+    border:1px solid #334155;
+  }
+  .btn:hover{
+    transform:translateY(-1px);
+  }
+  ol{
+    padding-left:20px;
+  }
+  li{
+    margin-bottom:10px;
+    color:#d4dbe5;
+  }
+  .tip{
+    margin-top:16px;
+    padding:14px;
+    border-left:4px solid #ffd166;
+    background:rgba(255,209,102,.08);
+    border-radius:10px;
+    color:#d8d8d8;
+  }
+  .footer{
+    text-align:center;
+    color:#708090;
+    font-size:13px;
+    margin-top:20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="card">
+    <h1>Shadowrocket 配置托管</h1>
+    <div class="desc">
+      通过 URL 一键导入 Shadowrocket 配置，无需手动复制粘贴。
+    </div>
+
+    <div class="url-box" id="configUrl">
+      https://yourdomain.com/shadowrocket.conf
+    </div>
+
+    <div class="btns">
+      <button class="btn primary" onclick="copyUrl()">复制配置 URL</button>
+      <button class="btn secondary" onclick="downloadConf()">下载配置文件</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>导入教程</h2>
+    <ol>
+      <li>打开 Shadowrocket</li>
+      <li>进入【配置】页面</li>
+      <li>点击右上角【+】</li>
+      <li>粘贴上方配置 URL</li>
+      <li>点击下载</li>
+      <li>保存并启用配置</li>
+    </ol>
+
+    <div class="tip">
+      提示：后续如配置更新，只需在 Shadowrocket 内下拉刷新即可同步最新规则。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>更新日志</h2>
+    <div class="desc">
+      最近更新时间：<span id="updateTime"></span>
+    </div>
+  </div>
+
+  <div class="footer">
+    Powered by Shadowrocket Config Hosting
+  </div>
+
+</div>
+
+<script>
+  const confUrl = window.location.origin + '/shadowrocket.conf';
+
+  document.getElementById('configUrl').innerText = confUrl;
+  document.getElementById('updateTime').innerText = new Date().toLocaleString();
+
+  function copyUrl() {
+    navigator.clipboard.writeText(confUrl);
+    alert('配置 URL 已复制');
+  }
+
+  function downloadConf() {
+    window.open(confUrl, '_blank');
+  }
+</script>
+
+</body>
+</html>
